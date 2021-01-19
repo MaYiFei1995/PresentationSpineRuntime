@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PUSurfaceView">
+        <attr name="drawType" format="enum">
+            <enum name="none" value="-1"/>
+            <enum name="color" value="0"/>
+            <enum name="image" value="1"/>
+        </attr>
+        <attr name="bgColor" format="color"/>
+        <attr name="imageSrc" format="reference" />
+    </declare-styleable>
+</resources>
