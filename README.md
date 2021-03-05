@@ -3,21 +3,21 @@
 
 ---
 ## 效果
-- 可以在 Android 的 Presentation 页面上通过 GLSurfaceView 展示 Spine 动画，Spine 动画可以叠加，互不干扰
-- 使用`PUSurfaceView`替代`PopupWindow`在 Spine 动画的 GLSurfaceView 上层展示其他 View
+- 可以在 Android 的 Presentation 页面上通过`GLSurfaceView`展示 Spine 动画，Spine 动画可以叠加，互不干扰
+- 使用[PUSurfaceView](SpineLib/src/main/java/com/mai/spine/PUSurfaceView.kt)替代`PopupWindow`在 Spine 动画的`GLSurfaceView`上层展示其他 View
 
 ![演示gif](./imgs/gif.gif)
 ---
 ## 注意 
 1. Presentation 需要 `android.permission.SYSTEM_ALERT_WINDOW`、`android.permission.WRITE_SETTINGS` 两个权限
 2. 虚拟机运行可能报错
-3. Spine动画的缩放适配可能需要手动修改`SpineBaseAdapter`，现有的适配需要动画的中心在(0,-1)
-4. Spine 动画需要参照 Demo 通过回调依次创建
+3. Spine 动画的缩放适配需要手动修改[SpineBaseAdapter](SpineLib/src/main/java/com/mai/spine/SpineBaseAdapter.kt)，现有的适配需要动画的中心在 (0,-1)
+4. Spine 动画对象需要参照 Demo 通过回调依次创建
 5. Spine 动画的回调不是主线程，操作 view 需要异步到主线程
 6. 新创建的 Spine 动画 View 的 zOrder 始终为 top
 ---
 ## 使用
-调用请参考 app module 的 `SpinePresentation.kt`
+调用请参考 app module 的 [SpinePresentation](app/src/main/java/com/mai/presentationspineruntime/SpinePresentation.kt)
 ##### 1. 加载GDX
 ```kotlin
     companion object {
@@ -27,7 +27,7 @@
     }
 ```
 ##### 2. 创建Adapter
-创建自定义 adapter 继承 `SpineBaseAdapter`，在`onCreateImpl()`回调中设置动画数据，在`onCreatedImpl()`中设置 skim 与 animation，也可以在创建 adapter 后设置。
+创建自定义 adapter 继承 `SpineBaseAdapter`，在`onCreateImpl()`回调中设置动画数据，在`onCreatedImpl()`中设置 skin 与 animation，也可以在创建 adapter 后设置。
 ```kotlin
     abstract class SpineBaseAdapter : ApplicationAdapter {
 
@@ -121,7 +121,7 @@
 调用 adapter 的`create(activity: Activity)`方法创建 view，并将 view 添加到 parentView 中。
 
 ##### 4. 在 Spine 上层绘制纯色与图片
-使用`PUSurfaceView`可以在 Spine 动画上层绘制纯色与图片。`PUSurfaceView`仅实现了简单的`SurfaceView`绘制功能。
+使用[PUSurfaceView](SpineLib/src/main/java/com/mai/spine/PUSurfaceView.kt)可以在 Spine 动画上层绘制纯色与图片。`PUSurfaceView`仅实现了简单的`SurfaceView`绘制功能。
 ```xml
     <!-- drawType 为 color 时需要配置 bgColor，image 时需要配置 imageSrc -->
     <com.mai.spine.PUSurfaceView
